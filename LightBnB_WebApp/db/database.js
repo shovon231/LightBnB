@@ -169,10 +169,58 @@ JOIN property_reviews ON properties.id = property_id
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
-  return Promise.resolve(property);
+  return new Promise((resolve, reject) => {
+    const {
+      owner_id,
+      title,
+      description,
+      thumbnail_photo_url,
+      cover_photo_url,
+      cost_per_night,
+      street,
+      city,
+      province,
+      post_code,
+      country,
+      parking_spaces,
+      number_of_bathrooms,
+      number_of_bedrooms,
+    } = property;
+
+    // parameterized queries to avoid SQL injection
+    const query = {
+      text: `INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+             RETURNING *;`,
+      values: [
+        owner_id,
+        title,
+        description,
+        thumbnail_photo_url,
+        cover_photo_url,
+        cost_per_night,
+        street,
+        city,
+        province,
+        post_code,
+        country,
+        parking_spaces,
+        number_of_bathrooms,
+        number_of_bedrooms,
+      ],
+    };
+
+    pool
+      .query(query)
+      .then((result) => {
+        // The saved property will be returned as a part of the 'result' object
+        const savedProperty = result.rows[0];
+        resolve(savedProperty);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 module.exports = {
