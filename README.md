@@ -62,7 +62,7 @@ The following screenshots show various parts of the app interface. While the des
 
 Home Page
 
-![Landing page](./docs/home.png)
+![Home page](.LightBnB_WebApp/docs/home.png)
 
 After User Logged in
 
