@@ -21,7 +21,7 @@ const getUserWithEmail = function (email) {
   return pool
     .query(`SELECT * FROM users WHERE email = $1`, [email])
     .then((result) => {
-      return result.rows[0]; // Since email is unique, we only expect one result or none
+      return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
@@ -36,7 +36,7 @@ const getUserWithId = function (id) {
   return pool
     .query(`SELECT * FROM users WHERE id = $1`, [id])
     .then((result) => {
-      return result.rows[0]; // Since id is unique, we only expect one result or none
+      return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
@@ -55,7 +55,6 @@ const addUser = function (user) {
       [user.name, user.email, user.password]
     )
     .then((result) => {
-      //console.log(result);
       return result.rows[0]; // Return the inserted user
     })
     .catch((err) => {
@@ -101,8 +100,6 @@ const getAllReservations = function (guest_id, limit = 10) {
     });
 };
 
-/// Properties
-
 /**
  * Get all properties.
  * @param {{}} options An object containing query options.
@@ -147,11 +144,6 @@ WHERE 1=1
   ORDER BY cost_per_night
   LIMIT $${queryParams.length};
 `;
-
-  // 5
-  console.log(queryString, queryParams);
-
-  // 6
   return pool.query(queryString, queryParams).then((res) => res.rows);
 };
 
