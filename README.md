@@ -66,15 +66,15 @@ Home Page
 
 After User Logged in
 
-![Search page](./docs/afterlogin.png)
+![After Login](./LightBnB_WebApp/docs/afterlogin.png)
 
 Search Results
 
-![Search results](./docs/Search.png)
+![Search results](./LightBnB_WebApp/docs/Search.png)
 
 Add New Property
 
-![Add new property](./docs/propertylisting.png)
+![Add new property](./LightBnB_WebApp/docs/propertylisting.png)
 
 ## Project Structure
 
